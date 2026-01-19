@@ -1,0 +1,16 @@
+
+2026-01-19 16:48:44.185968
+
+ALERTA DE ANIMALITOS FUERTES
+---------------------------
+Animal: Perro | Peso: 0.7
+Animal: Gato | Peso: 0.7
+Animal: Caballo | Peso: 0.7
+
+2026-01-19 16:50:57.945958
+
+ALERTA DE ANIMALITOS FUERTES
+---------------------------
+Animal: gallina | Peso: 0.7
+Animal: jirafa | Peso: 0.7
+Animal: pescado | Peso: 0.7
