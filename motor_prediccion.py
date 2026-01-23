@@ -3,7 +3,7 @@ import os
 import matplotlib
 matplotlib.use('Agg') # <--- ESTA LÍNEA ES VITAL PARA SERVIDORES
 import matplotlib.pyplot as plt
-from datetime import import datetime
+from datetime import datetime
 
 # =============================
 # ARCHIVOS
@@ -117,5 +117,6 @@ def ejecutar_prediccion():
         "fecha": str(pd.Timestamp.now()),
         "top_3": salida
     }
+
 
 
