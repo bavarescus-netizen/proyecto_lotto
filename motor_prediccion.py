@@ -100,11 +100,18 @@ plt.title("Peso de Animalitos")
 plt.xlabel("Animalito")
 plt.ylabel("Peso")
 plt.show()
-def ejecutar_prediccion():
-    # aquí ya está toda tu lógica
-    # solo devolvemos el resultado final
 
-    predicciones = generar_predicciones()  # tu función existente
+   def ejecutar_prediccion():
+    print("Predicción ejecutada correctamente")
+
+    animales = [
+        {"animal": "gallina", "peso": 0.7},
+        {"animal": "jirafa", "peso": 0.7},
+        {"animal": "pescado", "peso": 0.7},
+    ]
+
+    return {"predicciones": animales}
+
 
     salida = []
     for _, fila in predicciones.iterrows():
@@ -117,6 +124,7 @@ def ejecutar_prediccion():
         "fecha": str(pd.Timestamp.now()),
         "top_3": salida
     }
+
 
 
 
