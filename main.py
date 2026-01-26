@@ -1,14 +1,12 @@
-from fastapi import FastAPI
-import pandas as pd
-from motor_prediccion import ejecutar_prediccion
+from fastapi import FastAPI, Depends
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession
+from db import get_db
 
-app = FastAPI(title="API Lotto Activo")
+app = FastAPI()
+
 
 @app.get("/")
-def inicio():
-    return {"estado": "API Lotto Activo funcionando correctamente"}
-
-@app.get("/prediccion")
-def obtener_prediccion():
-    resultado = ejecutar_prediccion()
-    return resultado
+async def root(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(text("select 'API Lotto funcionando 🚀'"))
+    return {"estado": result.scalar()}
