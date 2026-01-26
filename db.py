@@ -1,23 +1,18 @@
 import os
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL no configurada")
-
-# ✅ convertir a asyncpg
-DATABASE_URL = DATABASE_URL.replace(
-    "postgresql://",
-    "postgresql+asyncpg://"
-)
-
-# ✅ quitar parámetros que rompen asyncpg
-DATABASE_URL = DATABASE_URL.split("?")[0]
+# 🔥 asyncpg NO usa sslmode → lo quitamos
+if DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.replace("sslmode=require", "")
 
 engine = create_async_engine(
     DATABASE_URL,
-    echo=True,
+    echo=False,
     pool_pre_ping=True
 )
 
@@ -30,4 +25,5 @@ AsyncSessionLocal = async_sessionmaker(
 async def get_db():
     async with AsyncSessionLocal() as session:
         yield session
+
 
