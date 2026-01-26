@@ -1,31 +1,23 @@
 import os
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-
-load_dotenv()
+from sqlalchemy.ext.asyncio import create_async_engine
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Neon requiere ssl
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL no configurada en Render")
+
+# SQLAlchemy async necesita asyncpg
 DATABASE_URL = DATABASE_URL.replace(
     "postgresql://",
     "postgresql+asyncpg://"
 )
 
-# Engine GLOBAL (solo se crea 1 vez)
 engine = create_async_engine(
     DATABASE_URL,
-    echo=False,
-    pool_size=5,
-    max_overflow=10
+    echo=True,
+    pool_pre_ping=True
 )
 
-AsyncSessionLocal = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
 
 # Dependency para FastAPI
 async def get_db():
