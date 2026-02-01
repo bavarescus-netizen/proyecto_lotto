@@ -6,9 +6,10 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# 🔥 asyncpg NO usa sslmode → lo quitamos
+# 🔥 FIX NEON + ASYNC
 if DATABASE_URL:
     DATABASE_URL = DATABASE_URL.replace("sslmode=require", "")
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
 
 engine = create_async_engine(
     DATABASE_URL,
@@ -25,5 +26,6 @@ AsyncSessionLocal = async_sessionmaker(
 async def get_db():
     async with AsyncSessionLocal() as session:
         yield session
+
 
 
